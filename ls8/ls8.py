@@ -9,4 +9,3 @@ cpu = CPU()
 
 cpu.load(sys.argv[1])
 cpu.run()
-print("done")

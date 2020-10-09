@@ -10,7 +10,7 @@
 
 > These registers only hold values between 0-255. After performing math on
 > registers in the emulator, bitwise-AND the result with 0xFF (255) to keep the
-> register values in that range.
+> register values in that range.dsadsad
 
 
 ## Internal Registers

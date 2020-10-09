@@ -57,9 +57,9 @@ class CPU:
 
                     self.mem[address] = int(inst.strip('\n'), 2)
                     address += 1
-                    print(inst)
+                    
         
-        print(self.mem)
+        
 
     def ram_read(self, address):
 
@@ -106,6 +106,7 @@ class CPU:
         running = True
         self.pc = 0 
         self.ir = self.ram_read(self.pc)
+        self.reg[6] = 245
 
         while running:
 
@@ -114,6 +115,7 @@ class CPU:
                 self.pc += 3
             
             elif self.ir == 0b01000111: # if print reg
+                print("print")
                 print(self.reg[self.ram_read(self.pc + 1)])
                 self.pc += 2 
             
@@ -127,6 +129,16 @@ class CPU:
 
             elif self.ir == 0b00000001: # if halt 
                 running = False  
+
+            elif self.ir == 0b01000101: # if push
+                self.ram_write(self.reg[6], self.reg[self.ram_read(self.pc + 1)])
+                self.reg[6] -= 1 
+                self.pc += 2
+            
+            elif self.ir == 0b01000110: #if pop
+                self.reg[6] += 1
+                self.reg[self.ram_read(self.pc + 1)] = self.mem[self.reg[6]]  
+                self.pc += 2 
 
             else:
                 print("Unreadable instruction")
